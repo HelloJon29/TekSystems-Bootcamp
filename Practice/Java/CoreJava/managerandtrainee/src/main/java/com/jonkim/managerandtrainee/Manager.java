@@ -13,6 +13,7 @@ public class Manager extends Employee{
         super.basicSalary = salary;
     }
 
+
     @Override
     public void calculateTransportAllowance() {
         double transportAllowance = 0.15 * basicSalary;

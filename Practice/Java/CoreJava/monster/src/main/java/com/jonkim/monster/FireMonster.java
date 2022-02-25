@@ -3,9 +3,12 @@ package com.jonkim.monster;
 public class FireMonster extends Monster{
     private String attackType = "Fire Attack";
 
+    public FireMonster(String name) {
+        super(name);
+
+    }
     @Override
-    protected String attack() {
-        String x = this.attackType;
-        return x;
+    public String attack() {
+        return this.attackType;
     }
 }

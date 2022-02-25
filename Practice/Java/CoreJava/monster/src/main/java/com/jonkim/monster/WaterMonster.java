@@ -3,9 +3,12 @@ package com.jonkim.monster;
 public class WaterMonster extends Monster{
     private String attackType = "Water Attack";
 
+    public WaterMonster(String name) {
+        super(name);
+    }
+
     @Override
-    protected String attack() {
-        String x = this.attackType;
-        return x;
+    public String attack() {
+        return this.attackType;
     }
 }
