@@ -18,7 +18,7 @@ public class AdultUsers implements LibraryUser{
     @Override
     public void requestBook() {
 
-        if (this.bookType == "Fiction") {
+        if (this.bookType.equals("Fiction")) {
             System.out.println("Book issued successfully, please return the book within 7 days.");
         }
         else {

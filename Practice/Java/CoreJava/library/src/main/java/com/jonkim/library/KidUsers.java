@@ -18,7 +18,7 @@ public class KidUsers implements LibraryUser{
     @Override
     public void requestBook() {
 
-        if (this.bookType == "Kids") {
+        if (this.bookType.equals("Kids")) {
             System.out.println("Book issued successfully, please return the book within 10 days.");
         }
         else {
