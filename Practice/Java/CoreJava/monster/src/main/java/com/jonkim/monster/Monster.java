@@ -3,8 +3,10 @@ package com.jonkim.monster;
 public class Monster {
     private String name;
 
-    public Monster(){
+    public Monster(){}
 
+    public String getName() {
+        return this.name;
     }
 
     public Monster(String name) {

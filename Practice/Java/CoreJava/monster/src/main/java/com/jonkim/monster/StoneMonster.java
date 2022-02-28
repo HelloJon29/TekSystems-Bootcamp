@@ -9,6 +9,6 @@ public class StoneMonster extends Monster{
 
     @Override
     public String attack() {
-        return this.attackType;
+        return (getName()) + " " + this.attackType;
     }
 }

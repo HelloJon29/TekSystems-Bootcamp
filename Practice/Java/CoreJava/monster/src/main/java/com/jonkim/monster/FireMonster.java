@@ -5,10 +5,9 @@ public class FireMonster extends Monster{
 
     public FireMonster(String name) {
         super(name);
-
     }
     @Override
     public String attack() {
-        return this.attackType;
+        return (getName()) + " " + this.attackType;
     }
 }
