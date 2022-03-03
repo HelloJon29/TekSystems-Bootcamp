@@ -19,4 +19,5 @@ public class MainArrayList {
 
         System.out.println(commonArray);
     }
+
 }
