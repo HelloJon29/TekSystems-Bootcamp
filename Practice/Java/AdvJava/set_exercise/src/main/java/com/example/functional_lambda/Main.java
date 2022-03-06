@@ -1,5 +1,9 @@
 package com.example.functional_lambda;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Calculator multiply = (x, y) -> x*y; // Call the Functional Interface type, then name variable, then use lambda exp this is simplified
@@ -13,6 +17,12 @@ public class Main {
         System.out.println(addResult);
 
         myMethod((x,y)->x+y, (x, y)->x*y);
+
+        List<Integer> myList = Arrays.asList(3,9,8,5,4);
+        System.out.println("Lambda refactor: ");
+        myList.forEach(i -> System.out.print(i));
+        System.out.println("\n Only Evens Stream");
+        myList.stream().filter(n -> n % 2 == 0).forEach(System.out::print);
     }
 
     public static void myMethod(Calculator m, Calculator d) {

@@ -1,6 +1,4 @@
-package com.jonkim.cage_project;
-
-import java.util.Scanner;
+package com.jonkim.cafe_project;
 
 public class CafeApp {
     public static void main(String[] args) {
@@ -10,9 +8,12 @@ public class CafeApp {
         Product cappuccino = new Product("Cappuccino", 7.50,"Sweet and delicious");
 
         coffee.getUserInput();
-        expresso.getUserInput();
-        cappuccino.getUserInput();
+//        expresso.getUserInput();
+//        cappuccino.getUserInput();
 
+        System.out.printf("Subtotal: %.2f", coffee.calculateProductTotal());
+        System.out.printf(" Sales Tax: %.2f", coffee.calculateSalesTax());
+        System.out.printf(" Grand Total: %.2f", coffee.calculateGrandTotal());
     }
 
 }

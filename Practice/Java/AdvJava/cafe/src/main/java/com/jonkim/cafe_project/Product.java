@@ -1,4 +1,4 @@
-package com.jonkim.cage_project;
+package com.jonkim.cafe_project;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class Product {
     private double price;
     private String description;
     private int quantity;
-    private double tax = 0.07;
+    final private double tax = 0.07;
 
 
 
@@ -29,6 +29,18 @@ public class Product {
         return subTotal;
     }
 
+    //method to calculate sales tax
+    public double calculateSalesTax() {
+        double salesTax = calculateProductTotal() * getTax();
+        return salesTax;
+    }
+
+    //method to calculate grand total
+    public double calculateGrandTotal() {
+        double grandTotal = (calculateSalesTax() + calculateProductTotal());
+        return grandTotal;
+    }
+
     // method to get user input
     public void getUserInput() {
         Scanner userInput = new Scanner(System.in);
@@ -37,10 +49,10 @@ public class Product {
         System.out.println("Quantity of " +
                 getName() + ":");
         setQuantity(userInput.nextInt());
-        System.out.println("That will be: \n" +
-                getName() + "\n" +
-                getDescription() + "\n" +
-                calculateProductTotal());
+        System.out.println("Item: " + getName() +
+                " Description: " + getDescription() +
+                " Subtotal: " + calculateProductTotal());
+
     }
 
 
@@ -81,7 +93,4 @@ public class Product {
         return tax;
     }
 
-    public void setTax(double tax) {
-        this.tax = tax;
-    }
 }

@@ -11,8 +11,8 @@
 	<groupId>com.jonkim</groupId>
 	<artifactId>cafe</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>cafe_project</name>
-	<description>cafe project</description>
+	<name>cafe_project2</name>
+	<description>v2 of Cafe</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -32,20 +32,14 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.4.1</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--			</plugin>-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 
