@@ -13,18 +13,21 @@ public class ShoppingCart {
 
     // Display checkout cart with each Product
     public void checkout() {
+        // for coffee
         System.out.printf("Item: %s", coffee.getName());
         System.out.printf(" Price: %.2f", coffee.getPrice());
         System.out.printf(" QTY: %d", coffee.getQuantity());
         System.out.printf(" Subtotal: %.2f\n", coffeeSubtotal());
         coffee.printOptions();
 
+        // for cappuccino
         System.out.printf("Item: %s", cappuccino.getName());
         System.out.printf(" Price: %.2f", cappuccino.getPrice());
         System.out.printf(" QTY: %d", cappuccino.getQuantity());
         System.out.printf(" Subtotal: %.2f\n", cappuccinoSubtotal());
         cappuccino.printOptions();
 
+        // for espresso
         System.out.printf("Item: %s", espresso.getName());
         System.out.printf(" Price: %.2f", espresso.getPrice());
         System.out.printf(" QTY: %d", espresso.getQuantity());
@@ -43,7 +46,7 @@ public class ShoppingCart {
         System.out.printf("Grand total: %.2f", coffeeSubtotal() + cappuccinoSubtotal() + espressoSubtotal() + salesTax());
     }
 
-    // Add products and calculate subtotals for each
+    // Add products and calculate subtotals for each and add options
     public void addCoffee() {
         Scanner add = new Scanner(System.in);
         System.out.println("Enter QTY:");

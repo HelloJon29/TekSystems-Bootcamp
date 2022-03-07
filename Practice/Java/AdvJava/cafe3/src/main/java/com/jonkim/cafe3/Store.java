@@ -1,5 +1,8 @@
 package com.jonkim.cafe3;
 
+import org.springframework.beans.TypeMismatchException;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Store {
@@ -11,41 +14,46 @@ public class Store {
         int menuSelection = 0;
         boolean repeatMenu = true;
 
-        while(repeatMenu) {
-            menuDisplay();
-            menuSelection = myScan.nextInt();
-            switch (menuSelection) {
-                case 1:
-                    myCart.addCoffee();
-                    myCart.coffeeOptions();
-                    System.out.println("Added Coffee");
-                    break;
-                case 2:
-                    myCart.addCappuccino();
-                    myCart.cappuccinoOptions();
-                    System.out.println("Added Cappuccino");
-                    break;
-                case 3:
-                    myCart.addEspresso();
-                    myCart.espressoOptions();
-                    System.out.println("Added Espresso");
-                    break;
-                case 4:
-                    System.out.println("Checkout: ");
-                    myCart.checkout();
-                    myCart.salesTax();
-                    myCart.printTax();
-                    myCart.grandTotal();
-                    repeatMenu = false;
-                    break;
-                case 5:
-                    System.out.println("Exit");
-                    repeatMenu = false;
-                    break;
-                default:
-                    System.out.println("Unknown selection, try again");
-            }
+        try {
+            while (repeatMenu) {
+                menuDisplay();
+                menuSelection = myScan.nextInt();
 
+                switch (menuSelection) {
+                    case 1:
+                        myCart.addCoffee();
+                        myCart.coffeeOptions();
+                        System.out.println("Added Coffee");
+                        break;
+                    case 2:
+                        myCart.addCappuccino();
+                        myCart.cappuccinoOptions();
+                        System.out.println("Added Cappuccino");
+                        break;
+                    case 3:
+                        myCart.addEspresso();
+                        myCart.espressoOptions();
+                        System.out.println("Added Espresso");
+                        break;
+                    case 4:
+                        System.out.println("Checkout: ");
+                        myCart.checkout();
+                        myCart.salesTax();
+                        myCart.printTax();
+                        myCart.grandTotal();
+                        repeatMenu = false;
+                        break;
+                    case 5:
+                        System.out.println("Exit");
+                        repeatMenu = false;
+                        break;
+                    default:
+                        System.out.println("Unknown selection, try again");
+                }
+
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Please enter only one of the following options");
         }
         myScan.close();
     }
