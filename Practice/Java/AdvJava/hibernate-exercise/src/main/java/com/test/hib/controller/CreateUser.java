@@ -1,6 +1,5 @@
 package com.test.hib.controller;
 
-
 import com.test.hib.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 
 public class CreateStudent {
@@ -19,7 +20,7 @@ public class CreateStudent {
         Transaction t = session.beginTransaction();
 
         // Create new Model/Entity Object and pass values through constructor
-        Student s1 = new Student("David","Kim",25,"Java2");
+        Student s1 = new Student("Jon","Kim",25,"Java2");
 
         session.save(s1);
 

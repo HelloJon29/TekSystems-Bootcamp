@@ -1,24 +1,19 @@
 package com.example.person.utilities;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.sql.*;
+
 public class HibernateUtil {
    
     // Database configuration
-    public static final String url = "jdbc:mysql://localhost:3306/mydb";
+    public static final String url = "jdbc:mysql://localhost:3306/hibernate";
     public static final String dbdriver = "com.mysql.cj.jdbc.Driver";
     public static final String username = "root";
-    public static final String password = "";
+    public static final String password = "jonkim29";
    
     public static final SessionFactory sessionFactory;
    

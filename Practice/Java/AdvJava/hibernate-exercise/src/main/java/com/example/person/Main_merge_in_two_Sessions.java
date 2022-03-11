@@ -1,7 +1,7 @@
 package com.example.person;
 
-import com.example.person.utilities.HibernateUtil;
 import com.example.person.model.Person;
+import com.example.person.utilities.HibernateUtil;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 

@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 class App3 {
@@ -20,7 +21,7 @@ public class FindUser_Hql3 {
         Session session = factory.openSession();
 
         String hql = "SELECT Max(U.salary) FROM User U";
-        Query query = session.createQuery(hql);
+        TypedQuery query = session.createQuery(hql);
         double maxSalary = (Double) query.getSingleResult();
         System.out.println("Maximum salary: " + maxSalary);
 

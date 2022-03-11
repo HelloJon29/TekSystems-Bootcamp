@@ -17,17 +17,9 @@ public class UpdatingUser {
         Transaction tx = session.beginTransaction();
 
         User u = new User();
-<<<<<<< HEAD
         u.setId(1);
-        u.setAge(22);
-        u.setCity("MN");
-        u.setEmail("mhaseeb@perscholas");
-        u.setFullname("M haseeb");
-=======
-        u.setId(3);
         u.setEmail("sang@perscholas");
         u.setFullname("Sang SHin2");
->>>>>>> 5a7ea107b7f1339c19a5a075aa42c82d2fda8c87
         u.setPassword("123456");
         session.merge(u);
 
