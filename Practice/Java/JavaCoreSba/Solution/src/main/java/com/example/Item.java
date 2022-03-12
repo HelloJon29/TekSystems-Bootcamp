@@ -5,9 +5,9 @@ public class Item{
     // Declared private fields for the model
     private String itemName;
     private String itemDesc;
-    Double itemPrice;
-    Integer quantity;
-    Integer availableQuantity;
+    private Double itemPrice;
+    private Integer quantity;
+    private Integer availableQuantity;
 
     // Default constructor that initializes quantity field to 1
     public Item() {
@@ -16,6 +16,8 @@ public class Item{
 
     // overloaded constructor that initializes the rest of the fields to the arguments in the constructor
     public Item(String itemName, String itemDesc, Double itemPrice, Integer availableQuantity) {
+        this.quantity = 1;
+
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.itemPrice = itemPrice;
@@ -23,7 +25,6 @@ public class Item{
     }
 
     // Getters and Setters for all fields
-
     public String getItemName() {
         return itemName;
     }
