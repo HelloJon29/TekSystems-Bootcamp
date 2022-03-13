@@ -30,28 +30,33 @@ public class AppSystem extends TheSystem {
     public Boolean add(Item item) {
         if (item == null) {
             return false;
-        } else if (super.getItemCollection().containsKey(item.getItemName())) {
+        } else if (super.getItemCollection().containsKey(item.getItemName()) && checkAvailability(item)) {
             System.out.println(item.getItemName() + " is already in the App System");
             return false;
-        } else if (!super.getItemCollection().containsKey(item.getItemName())) {
-            getItemCollection().put(item.getItemName(), item);
         }
-        return true;
+        else {
+            getItemCollection().put(item.getItemName(), item);
+            return true;
+        }
+
     }
 
     // this method checks if an item is in the collection, if it is, reduce availableQuantity by 1
     public Item reduceAvailableQuantity(String item_name) {
         boolean doesContain = super.getItemCollection().containsKey(item_name);
 
-        if(doesContain) {
+        if (doesContain) {
             Item itemObject = super.getItemCollection().get(item_name);
             Integer quantity = itemObject.getAvailableQuantity();
             itemObject.setAvailableQuantity(quantity - 1);
             // When the availableQuantity is 0 remove the item
             if (itemObject.getAvailableQuantity() == 0) {
-                return super.getItemCollection().remove(item_name);
+                super.getItemCollection().remove(item_name);
+                return null;
             }
+            return itemObject;
+        } else {
+            return null;
         }
-        return null;
     }
 }

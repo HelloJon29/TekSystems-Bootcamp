@@ -46,8 +46,10 @@ public abstract class TheSystem {
             System.out.println("System is unable to add " + item.getItemName() +
                     " to the card. System only has " + item.getAvailableQuantity() +
                     " " + item.getItemName() + "s.");
+            return false;
+        } else {
+        return true;
         }
-        return false;
     }
 
     // adds an item to the collection if it does not exist, if it does exist it will increment item quantity by 1
@@ -60,8 +62,9 @@ public abstract class TheSystem {
             } else if (!itemCollection.containsKey(item.getItemName())) {
                 itemCollection.put(item.getItemName(), item);
                 return true;
-            }
+            } else {
             return false;
+            }
     }
 
     // removes item from collection if it exists and returns the item that was removed
