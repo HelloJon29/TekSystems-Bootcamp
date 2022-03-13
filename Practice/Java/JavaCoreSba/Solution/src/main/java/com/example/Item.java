@@ -1,7 +1,6 @@
 package com.example;
 
 public class Item{
-
     // Declared private fields for the model
     private String itemName;
     private String itemDesc;
@@ -17,7 +16,6 @@ public class Item{
     // overloaded constructor that initializes the rest of the fields to the arguments in the constructor
     public Item(String itemName, String itemDesc, Double itemPrice, Integer availableQuantity) {
         this.quantity = 1;
-
         this.itemName = itemName;
         this.itemDesc = itemDesc;
         this.itemPrice = itemPrice;
