@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Buttons and Forms</title>
+    </head>
+
+    <body>
+        <h1>This is my lil button</h1>
+        <hr>
+
+        <button name="loginButton" type="button" value="login">
+            Login
+        </button>
+
+        <button name="registerButton" type="button" value="register">
+            Register
+        </button>
+
+        <button name="resetButton" type="button" type="reset">
+            Reset
+        </button>
+
+        <button disabled>
+            Disabled
+        </button>
+
+        <button autofocus>
+            Autofocus
+        </button>
+
+        <button onclick="alert('Oops this didnt work')">
+            Alert
+        </button>
+
+        <a href="https://www.youtube.com/watch?v=6Jr-XCYTF4Y">
+            <button>
+                Holy button
+            </button>
+        </a>
+        <br>
+        <br>
+
+        <button style=" background-color:bisque; 
+                        color: rgb(73, 20, 64);
+                        font-size: 20px;
+                        font-family: monospace;">
+            CSS style
+        </button>
+
+        <h1>This is all about forms</h1>
+        <hr>
+
+        <form action="doSomething.php">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName">
+            <br><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName">
+            <br><br>
+
+            <input type="reset">
+            <br><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>
