@@ -1,13 +1,11 @@
-package com.jonkim.hibernate;
+package jpa.entitymodels;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HibernateExercises3ApplicationTests {
+class JavaSbaApplicationTests {
 
-	@BeforeAll
 	@Test
 	void contextLoads() {
 	}
