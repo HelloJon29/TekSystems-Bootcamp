@@ -12,7 +12,7 @@ public class FindStudent {
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
 
-        int studentId = 1;
+        int studentId = 3;
         Student s = session.load(Student.class, studentId);
         System.out.println("Firstname: " + s.getFirstName());
         System.out.println("Lastname: " + s.getLastName());

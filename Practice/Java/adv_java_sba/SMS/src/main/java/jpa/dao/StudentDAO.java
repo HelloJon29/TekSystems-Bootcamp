@@ -8,11 +8,11 @@ import java.util.List;
 public interface StudentDAO {
     List<Student> getAllStudents();
 
-    Student getStudentByEmail();
+    Student getStudentByEmail(String sEmail);
 
-    boolean validateStudent();
+    boolean validateStudent(String sEmail, String sPass);
 
-    void registerStudentToCourse();
+    void registerStudentToCourse(String sEmail, int cId);
 
-    List<Course> getStudentCourses();
+    List<Course> getStudentCourses(String sEmail);
 }

@@ -8,7 +8,7 @@ public class Course {
     // fields that are the columns of the model class
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) may not need
     private int cId;
 
     @Column(name = "name", length = 50, nullable = false)
@@ -25,10 +25,10 @@ public class Course {
     }
 
     // Overloaded constructor that takes in args and sets them to the private members
-    public Course(int id, String name, String instructorName) {
-        this.cId = id;
-        this.cName = name;
-        this.cInstructorName = instructorName;
+    public Course(int cId, String cName, String cInstructorName) {
+        this.cId = cId;
+        this.cName = cName;
+        this.cInstructorName = cInstructorName;
     }
 
     // Getters and Setters

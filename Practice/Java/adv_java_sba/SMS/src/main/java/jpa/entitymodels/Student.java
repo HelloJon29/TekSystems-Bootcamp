@@ -29,10 +29,11 @@ public class Student {
         this.sCourses = null;
     }
     // Overloaded constructor that takes in arguments and sets them to the private members
-    public Student(String email, String name, String password) {
-        this.sEmail = email;
-        this.sName = name;
-        this.sPass = password;
+    public Student(String sEmail, String sName, String sPass, List<Course> sCourses) {
+        this.sEmail = sEmail;
+        this.sName = sName;
+        this.sPass = sPass;
+        this.sCourses = sCourses;
     }
 
     //Getters and Setters
@@ -67,4 +68,7 @@ public class Student {
     public void setsCourses(List<Course> sCourses) {
         this.sCourses = sCourses;
     }
+
+    // Overrides for tests
+
 }
