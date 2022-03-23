@@ -26,4 +26,12 @@ public class CourseService implements CourseDAO {
             manager.stop();
         }
     }
+
+    public Course getCourseById(int cID) {
+        ManageSession manager = new ManageSession();
+        manager.start();
+
+        Course course = manager.session.get(Course.class, cID);
+        return course;
+    }
 }

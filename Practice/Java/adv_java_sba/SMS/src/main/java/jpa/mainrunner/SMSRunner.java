@@ -76,7 +76,7 @@ public class SMSRunner {
 
         if(flag) {
             while(true) {
-                System.out.printf("My class:\n%10s %20s %20s", "Course Id\n", "Course Name", "Instructor Name");
+                System.out.printf("My classes:\n%10s %20s %20s", "#", "Course Name", "Instructor Name");
                 studentService.getStudentCourses(email).forEach(courses -> System.out.printf("%10d %40s %20s\n",
                         courses.getcId(),
                         courses.getcName(),

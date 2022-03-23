@@ -73,30 +73,23 @@ public class StudentService implements StudentDAO {
     @Override
     public void registerStudentToCourse(String sEmail, int cId) {
         ManageSession manager = new ManageSession();
+        CourseService getCourses = new CourseService();
+        Student student = getStudentByEmail(sEmail);
+        Course course = getCourses.getCourseById(cId);
+        List<Course> courseList = getStudentByEmail(sEmail).getsCourses();
+
         manager.start();
-
-        Student getStudent = null;
-        Course addCourse= null;
-        String sql = "SELECT * FROM Student_Courses WHERE Student_email=? AND sCourses_id=?";
-
-        TypedQuery query = manager.session.createNativeQuery(sql);
-        query.setParameter(1, sEmail);
-        query.setParameter(2, cId);
-        getStudent = manager.session.get(Student.class,sEmail);
-        boolean validate = manager.session.createNativeQuery(sql).getResultList().isEmpty();
-
-        if(getStudent != null) {
-            addCourse = manager.session.get(Course.class, cId);
-            if(!validate) {
-                manager.stop();
-            }
+        if(!courseList.contains(course)) {
             manager.session.getTransaction().begin();
-            getStudent.getsCourses().add(addCourse);
-            manager.session.save(getStudent);
-            manager.session.getTransaction().commit();
+            student.getsCourses().add(course);
+            manager.session.update(student);
 
-            manager.stop();
+            manager.session.getTransaction().commit();
+        } else {
+            System.out.println("student already attending course");
         }
+
+        manager.stop();
     }
 
     @Override

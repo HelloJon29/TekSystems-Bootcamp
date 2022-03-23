@@ -1,6 +1,7 @@
 package jpa.entitymodels;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Course")
@@ -54,5 +55,20 @@ public class Course {
 
     public void setcInstructorName(String cInstructorName) {
         this.cInstructorName = cInstructorName;
+    }
+
+    // override equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+        Course course = (Course) o;
+        return getcId() == course.getcId() && Objects.equals(getcName(), course.getcName()) && Objects.equals(getcInstructorName(), course.getcInstructorName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getcId(), getcName(), getcInstructorName());
     }
 }

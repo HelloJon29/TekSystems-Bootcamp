@@ -1,87 +1,163 @@
 package jpa.service;
 
+import jpa.dao.StudentDAO;
 import jpa.entitymodels.Course;
 import jpa.entitymodels.Student;
+import jpa.service.StudentService;
+import org.assertj.core.api.Assertions;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.persistence.TypedQuery;
-import java.util.List;
+import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class StudentServiceTest {
 
-class StudentServiceTest {
+    private Session session;
+    private Transaction transaction;
+    private SessionFactory factory;
 
-    @Test
-    void getStudentByEmail_returns_String_values_student_object_given_an_email() {
-        ManageSession manager = new ManageSession();
-        manager.start();
+    @BeforeEach
+    void setUp() {
+        factory = new Configuration().configure().buildSessionFactory();
+        session = factory.openSession();
+        transaction = session.beginTransaction();
 
-        Student student = manager.session.get(Student.class, "cjaulme9@bing.com");
-        System.out.println("email: " + student.getsEmail());
-        System.out.println("name: " + student.getsName());
-        System.out.println("password: " + student.getsPass());
+        // Truncate tables
+        session.createSQLQuery("DROP table student_course;").executeUpdate();
+        session.createSQLQuery("TRUNCATE table student;").executeUpdate();
+        session.createSQLQuery("TRUNCATE table course;").executeUpdate();
 
-        manager.stop();
-        // Assert that the Student object is equal to the expected object
+        // Populate course table
+        addCourse(session, 1, "English", "Anderea Scamaden");
+        addCourse(session, 2, "Mathematics", "Eustace Niemetz");
+        addCourse(session, 3, "Anatomy", "Reynolds Pastor");
+        addCourse(session, 4, "Organic Chemistry", "Odessa Belcher");
+        addCourse(session, 5, "Physics", "Dani Swallow");
+        addCourse(session, 6, "Digital Logic", "Glenden Reilingen");
+        addCourse(session, 7, "Object Oriented Programming", "Giselle Ardy");
+        addCourse(session, 8, "Data Structures", "Carolan Stoller");
+        addCourse(session, 9, "Politics", "Carmita De Maine");
+        addCourse(session, 10, "Art", "Kingsly Doxsey");
+
+        // Populate student table
+        addStudent(session, "hluckham0@google.ru", "Hazel Luckham", "X1uZcoIh0dj");
+        addStudent(session, "sbowden1@yellowbook.com", "Sonnnie Bowden", "SJc4aWSU");
+        addStudent(session, "qllorens2@howstuffworks.com", "Quillan Llorens", "W6rJuxd");
+        addStudent(session, "cstartin3@flickr.com", "Clem Startin", "XYHzJ1S");
+        addStudent(session, "tattwool4@biglobe.ne.jp", "Thornie Attwool", "Hjt0SoVmuBz");
+        addStudent(session, "hguerre5@deviantart.com", "Harcourt Guerre", "OzcxzD1PGs");
+        addStudent(session, "htaffley6@columbia.edu", "Holmes Taffley", "xowtOQ");
+        addStudent(session, "aiannitti7@is.gd", "Alexandra Iannitti", "TWP4hf5j");
+        addStudent(session, "ljiroudek8@sitemeter.com", "Laryssa Jiroudek", "bXRoLUP");
+        addStudent(session, "cjaulme9@bing.com", "Cahra Jaulme", "FnVklVgC6r6");
+
+        transaction.commit();
+        session.close();
+        factory.close();
+    }
+
+    private void addCourse(Session session, int cId, String cName, String cInstructorName) {
+        Course course = new Course(cId, cName, cInstructorName);
+        session.save(course);
+    }
+
+    private void addStudent(Session session, String email, String name, String password) {
+        Student student = new Student(email, name, password, new ArrayList<>());
+        session.save(student);
     }
 
     @Test
-    void getStudentByEmail_returns_null__given_a_wrong_email() {
-        ManageSession manager = new ManageSession();
-        manager.start();
+    public void getStudentByEmail_should_return_correct_student_given_valid_email() {
+        Student expectedStudent = new Student(
+                "tattwool4@biglobe.ne.jp", "Thornie Attwool",
+                "Hjt0SoVmuBz", new ArrayList<>());
 
-        Student student = manager.session.get(Student.class, "jonkim29@gmail.com");
-        if(student != null) {
-            System.out.println("email: " + student.getsEmail());
-            System.out.println("name: " + student.getsName());
-            System.out.println("password: " + student.getsPass());
-        } else {
-            System.out.println("student is null");
-        }
+        StudentDAO studentService = new StudentService();
+        Student actualStudent = studentService.getStudentByEmail(expectedStudent.getsEmail());
 
-
-        manager.stop();
-        // Assert that the Student object is equal to the expected value of null
-        assertNull(student);
+        Assertions.assertThat(actualStudent).isEqualTo(expectedStudent);
     }
 
     @Test
-    void getAllStudents_returns_list_of_all_students_when_called() {
-        // start session using ManageSession Class
-        ManageSession manager = new ManageSession();
-        manager.start();
+    public void getStudentByEmail_should_return_null_given_invalid_email() {
+        StudentDAO studentService = new StudentService();
+        Student actualStudent = studentService.getStudentByEmail("randomEmail");
 
-        List<Student> getAllStudents;
-        TypedQuery query = manager.session.createQuery("FROM Student");
-        getAllStudents = query.getResultList();
-        for(Student s : getAllStudents) {
-            System.out.println("Email: " + s.getsEmail() +
-                    " Name: " + s.getsName() +
-                    " Password: " + s.getsPass());
-        }
-        // dispose of session after all logic is done
-        manager.stop();
-        // Assert getAllStudents is equal to expected output
+        Assertions.assertThat(actualStudent).isNull();
     }
 
     @Test
-    void getStudentCourses_returns_list_of_all_a_students_courses_given_email() {
-        ManageSession manager = new ManageSession();
-        manager.start();
+    public void validateStudent_should_return_true_given_correct_email_and_password() {
+        String email = "tattwool4@biglobe.ne.jp";
+        String password = "Hjt0SoVmuBz";
 
-        Student student = null;
-        List<Course> courseList = null;
+        StudentDAO studentService = new StudentService();
+        boolean actualResult = studentService.validateStudent(email, password);
 
-        student = manager.session.get(Student.class, "cjaulme9@bing.com");
-        courseList = student.getsCourses();
-
-        for(Course c : courseList) {
-            System.out.println(c.toString());
-        }
+        Assertions.assertThat(actualResult).isTrue();
     }
+
+    @Test
+    public void validateStudent_should_return_false_given_correct_email_and_incorrect_password() {
+        String email = "tattwool4@biglobe.ne.jp";
+        String password = "test";
+
+        StudentDAO studentService = new StudentService();
+        boolean actualResult = studentService.validateStudent(email, password);
+
+        Assertions.assertThat(actualResult).isFalse();
+    }
+
+    @Test
+    public void validateStudent_should_return_false_given_incorrect_email_and_correct_password() {
+        String email = "tattwool4@biglobe.ne.j";
+        String password = "Hjt0SoVmuBz";
+
+        StudentDAO studentService = new StudentService();
+        boolean actualResult = studentService.validateStudent(email, password);
+
+        Assertions.assertThat(actualResult).isFalse();
+    }
+
+    @Test
+    void registerStudentToCourse_should_register_successfully_given_a_new_course() {
+        String email = "tattwool4@biglobe.ne.jp";
+        String password = "Hjt0SoVmuBz";
+        int courseId = 2;
+
+        StudentDAO studentService = new StudentService();
+        int beforeSize = studentService.getStudentCourses(email).size();
+
+        studentService.registerStudentToCourse(email, courseId);
+
+        int afterSize = studentService.getStudentCourses(email).size();
+        Assertions.assertThat(afterSize).isEqualTo(beforeSize + 1);
+    }
+
+    @Test
+    void registerStudentToCourse_should_not_register_given_already_registered_course() {
+        String email = "tattwool4@biglobe.ne.jp";
+        String password = "Hjt0SoVmuBz";
+        int courseId = 3;
+
+        StudentDAO studentService = new StudentService();
+        int beforeSize = studentService.getStudentCourses(email).size();
+
+        // this should register successfully
+        studentService.registerStudentToCourse(email, courseId);
+
+        int afterSize = studentService.getStudentCourses(email).size();
+        Assertions.assertThat(afterSize).isEqualTo(beforeSize+1);
+
+        // this should not register
+        studentService.registerStudentToCourse(email, courseId);
+
+        int afterSize2 = studentService.getStudentCourses(email).size();
+        Assertions.assertThat(afterSize2).isEqualTo(afterSize);
+    }
+
 }

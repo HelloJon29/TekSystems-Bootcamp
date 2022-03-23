@@ -2,6 +2,7 @@ package jpa.entitymodels;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Student")
@@ -20,7 +21,7 @@ public class Student {
     @Column(name = "password", length = 50, nullable = false)
     private String sPass;
 
-    @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
     private List<Course> sCourses;
 
     // No args constructor that initializes the fields
@@ -73,4 +74,26 @@ public class Student {
 
     // Overrides for tests
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return Objects.equals(getsEmail(), student.getsEmail()) && Objects.equals(getsName(), student.getsName()) && Objects.equals(getsPass(), student.getsPass());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getsEmail(), getsName(), getsPass(), getsCourses());
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "sEmail='" + sEmail + '\'' +
+                ", sName='" + sName + '\'' +
+                ", sPass='" + sPass + '\'' +
+                ", sCourses=" + sCourses +
+                '}';
+    }
 }
