@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javax.persistence.TypedQuery;
@@ -30,6 +31,26 @@ class StudentServiceTest {
     }
 
     @Test
+    void getStudentByEmail_returns_null__given_a_wrong_email() {
+        ManageSession manager = new ManageSession();
+        manager.start();
+
+        Student student = manager.session.get(Student.class, "jonkim29@gmail.com");
+        if(student != null) {
+            System.out.println("email: " + student.getsEmail());
+            System.out.println("name: " + student.getsName());
+            System.out.println("password: " + student.getsPass());
+        } else {
+            System.out.println("student is null");
+        }
+
+
+        manager.stop();
+        // Assert that the Student object is equal to the expected value of null
+        assertNull(student);
+    }
+
+    @Test
     void getAllStudents_returns_list_of_all_students_when_called() {
         // start session using ManageSession Class
         ManageSession manager = new ManageSession();
@@ -46,5 +67,21 @@ class StudentServiceTest {
         // dispose of session after all logic is done
         manager.stop();
         // Assert getAllStudents is equal to expected output
+    }
+
+    @Test
+    void getStudentCourses_returns_list_of_all_a_students_courses_given_email() {
+        ManageSession manager = new ManageSession();
+        manager.start();
+
+        Student student = null;
+        List<Course> courseList = null;
+
+        student = manager.session.get(Student.class, "cjaulme9@bing.com");
+        courseList = student.getsCourses();
+
+        for(Course c : courseList) {
+            System.out.println(c.toString());
+        }
     }
 }

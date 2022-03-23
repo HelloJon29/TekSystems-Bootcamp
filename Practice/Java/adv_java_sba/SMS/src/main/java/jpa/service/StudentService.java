@@ -18,13 +18,12 @@ public class StudentService implements StudentDAO {
         ManageSession manager = new ManageSession();
         manager.start();
         try {
-            List<Student> getAllStudents;
             TypedQuery query = manager.session.createQuery("FROM Student");
-            getAllStudents = query.getResultList();
+            List<Student> getAllStudents = query.getResultList();
             return getAllStudents;
         } catch (Exception e) {
             System.out.println("No Students Available");
-            return null;
+            return null; // either return null or return empty list, refactor here
         } finally {
             // dispose of session after all logic is done
             manager.stop();
@@ -52,16 +51,66 @@ public class StudentService implements StudentDAO {
 
     @Override
     public boolean validateStudent(String sEmail, String sPass) {
-        return false;
+        // open session
+        ManageSession manager = new ManageSession();
+        manager.start();
+
+        // create list of student to populate given the named query that returns results if email and pass match the db
+        TypedQuery query = manager.session.getNamedQuery("validateStudent");
+        query.setParameter("sEmail", sEmail);
+        query.setParameter("sPass", sPass);
+        List<Student> student = query.getResultList();
+        // if statement to return false if no values are shown
+        if(student.isEmpty()) {
+            return false;
+        }
+        // Returns true if values are fetched
+        manager.stop();
+        return true;
+
     }
 
     @Override
     public void registerStudentToCourse(String sEmail, int cId) {
+        ManageSession manager = new ManageSession();
+        manager.start();
 
+        Student getStudent = null;
+        Course addCourse= null;
+        String sql = "SELECT * FROM Student_Courses WHERE Student_email=? AND sCourses_id=?";
+
+        TypedQuery query = manager.session.createNativeQuery(sql);
+        query.setParameter(1, sEmail);
+        query.setParameter(2, cId);
+        getStudent = manager.session.get(Student.class,sEmail);
+        boolean validate = manager.session.createNativeQuery(sql).getResultList().isEmpty();
+
+        if(getStudent != null) {
+            addCourse = manager.session.get(Course.class, cId);
+            if(!validate) {
+                manager.stop();
+            }
+            manager.session.getTransaction().begin();
+            getStudent.getsCourses().add(addCourse);
+            manager.session.save(getStudent);
+            manager.session.getTransaction().commit();
+
+            manager.stop();
+        }
     }
 
     @Override
     public List<Course> getStudentCourses(String sEmail) {
-        return null;
+        ManageSession manager = new ManageSession();
+        manager.start();
+
+        Student student = null;
+        List<Course> courseList = null;
+
+        student = manager.session.get(Student.class, sEmail);
+        courseList = student.getsCourses();
+
+        return courseList;
+
     }
 }

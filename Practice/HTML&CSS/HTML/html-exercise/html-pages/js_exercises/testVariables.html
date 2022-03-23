@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <script>
+            // global variables
+            var foo = 1;
+            bar = 2;
+
+            function myFunction() {
+                var foo = 1;
+                bar = 3;
+
+                (function() {
+                    var wibble = 1;
+                    foo = 2;
+                    moo = 3;
+                }())
+
+                return bar;
+            }
+
+            let number = myFunction();
+            console.log("number: " + number)
+            console.log("bar: " + bar)
+
+        </script>
+    </body>
+</html>

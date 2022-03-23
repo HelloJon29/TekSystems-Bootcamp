@@ -5,6 +5,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "Student")
+@NamedQueries({
+        @NamedQuery(name = "validateStudent", query = "FROM Student s WHERE s.sEmail = :sEmail AND s.sPass = :sPass")
+})
 public class Student {
     // fields that are the columns of the model class
     @Id
@@ -17,8 +20,7 @@ public class Student {
     @Column(name = "password", length = 50, nullable = false)
     private String sPass;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_email", referencedColumnName = "email")
+    @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
     private List<Course> sCourses;
 
     // No args constructor that initializes the fields

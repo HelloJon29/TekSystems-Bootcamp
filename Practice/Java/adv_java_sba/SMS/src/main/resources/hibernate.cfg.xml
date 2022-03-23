@@ -17,7 +17,7 @@
 
                 <!--Mapping entity file-->
       <mapping class="jpa.entitymodels.Student"/> 
-      <mapping class="jpa.entitymodels.Course"/> 
+      <mapping class="jpa.entitymodels.Course"/>
 
     </session-factory>  
 </hibernate-configuration>  
