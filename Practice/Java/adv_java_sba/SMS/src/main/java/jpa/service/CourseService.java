@@ -2,6 +2,7 @@ package jpa.service;
 
 import jpa.dao.CourseDAO;
 import jpa.entitymodels.Course;
+import org.hibernate.HibernateException;
 
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class CourseService implements CourseDAO {
             TypedQuery query = manager.session.createQuery("FROM Course");
             getAllCourses = query.getResultList();
             return getAllCourses;
-        } catch (Exception e) {
-            System.out.println("No Course");
+        } catch (HibernateException e) {
+            System.out.println("hibernate error encountered");
             return null;
         } finally {
             // dispose of session after all logic is done

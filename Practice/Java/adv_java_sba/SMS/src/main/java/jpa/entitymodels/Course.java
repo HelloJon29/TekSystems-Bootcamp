@@ -57,7 +57,7 @@ public class Course {
         this.cInstructorName = cInstructorName;
     }
 
-    // override equals and hashcode
+    // override equals and hashcode for tests
 
     @Override
     public boolean equals(Object o) {

@@ -14,8 +14,9 @@ public class SMSRunner {
     private static CourseDAO courseService = new CourseService();
     private static Scanner input = new Scanner(System.in);
 
+    // main method and initial entry into app
     public static void main(String[] args) {
-        int choice = 0;
+        int choice;
         while(true) {
             mainMenu();
             try {
@@ -27,7 +28,7 @@ public class SMSRunner {
                 }
             } catch(InputMismatchException e) {
                 // This stops illegal characters from being inputted
-                System.out.println("Please enter only 1 or 2");
+                System.out.println("Illegal input, enter only 1 or 2");
                 input.nextLine();
                 continue;
             }
@@ -64,8 +65,8 @@ public class SMSRunner {
                 "2. Logout");
     }
 
+    // method to get email and password inputs from user and validate, then fetch classes
     public static void fetchStudent() {
-        boolean flag = false;
         // take user input for email
         System.out.println("Enter Email:");
         String email = input.nextLine().toLowerCase(); // toLowerCase to avoid case mismatch
@@ -73,17 +74,21 @@ public class SMSRunner {
         // take user input for password, this will be case sensitive
         System.out.println("Enter Student Password");
         String password = input.nextLine();
-        flag = studentService.validateStudent(email, password);
 
-        if(flag) {
+        // create a boolean to check for validation
+        boolean check;
+        check = studentService.validateStudent(email, password);
+
+        if(check) {
             while(true) {
-                System.out.printf("My classes:\n%-10s %-40s %-20s", "#", "Course Name", "Instructor Name");
-                studentService.getStudentCourses(email).forEach(courses -> System.out.printf("%10d %40s %20s\n",
+                System.out.printf("My classes:\n%-10s %-30s %-20s\n", "#", "Course Name", "Instructor Name");
+                studentService.getStudentCourses(email).forEach(courses -> System.out.printf("%-10d %-30s %-20s\n",
                         courses.getcId(),
                         courses.getcName(),
                         courses.getcInstructorName()));
-                boolean logout = registerStudent(email);
 
+                // logout function to escape student view
+                boolean logout = registerStudent(email);
                 if(logout == false) {
                     System.out.println("You have been signed out");
                     break;
@@ -97,11 +102,12 @@ public class SMSRunner {
 
     }
 
+    // method to display registration menu and take input
     public static boolean registerStudent(String email) {
-        int choice = 0;
+        int choice;
         while(true) {
             registerCourseMenu();
-            // try catch with if statement to catch InputMismatch error
+            // catch inputmismatch and restrict input
             try {
                 choice = input.nextInt();
                 input.nextLine();
@@ -114,14 +120,15 @@ public class SMSRunner {
                 }
             } catch(InputMismatchException e) {
                 input.nextLine();
-                System.out.println("Please enter only 1 or 2");
+                System.out.println("Illegal input, enter only 1 or 2");
             }
         }
 
+        // have user choose a course or default to false, breaking loops
         switch(choice) {
             case 1:
-                System.out.printf("All Courses:\n%-10s %-40s %-20s\n", "ID", "Course Name", "Instructor Name");
-                courseService.getAllCourses().forEach(courses -> System.out.printf("%-10d %-40s %-20s\n",
+                System.out.printf("All Courses:\n%-10s %-30s %-20s\n", "ID", "Course Name", "Instructor Name");
+                courseService.getAllCourses().forEach(courses -> System.out.printf("%-10d %-30s %-20s\n",
                         courses.getcId(),
                         courses.getcName(),
                         courses.getcInstructorName()));
@@ -129,6 +136,7 @@ public class SMSRunner {
                 int courseOption;
 
                 while(true) {
+                    // Catch input mismatch and restrict input
                     try {
                         courseOption = input.nextInt();
                         input.nextLine();

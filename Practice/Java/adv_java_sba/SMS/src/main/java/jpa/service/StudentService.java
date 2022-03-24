@@ -3,6 +3,7 @@ package jpa.service;
 import jpa.dao.StudentDAO;
 import jpa.entitymodels.Course;
 import jpa.entitymodels.Student;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,16 +17,17 @@ public class StudentService implements StudentDAO {
     public List<Student> getAllStudents() {
         // start session using ManageSession Class
         ManageSession manager = new ManageSession();
-        manager.start();
+
         try {
+            manager.start();
             TypedQuery query = manager.session.createQuery("FROM Student");
             List<Student> getAllStudents = query.getResultList();
             return getAllStudents;
-        } catch (Exception e) {
-            System.out.println("No Students Available");
-            return null; // either return null or return empty list, refactor here
+        } catch (HibernateException e) {
+            System.out.println("Hibernate error encountered");
+            return null;
         } finally {
-            // dispose of session after all logic is done
+            // dispose of session
             manager.stop();
         }
     }
@@ -34,14 +36,14 @@ public class StudentService implements StudentDAO {
     public Student getStudentByEmail(String sEmail) {
         // Open factory and session
         ManageSession manager = new ManageSession();
-        manager.start();
 
         try {
             // fetch student object by passed in argument
+            manager.start();
             Student student = manager.session.get(Student.class, sEmail);
             return student;
-        } catch (NullPointerException e) {
-            System.out.println("No student exists");
+        } catch (HibernateException e) {
+            System.out.println("Hibernate error encountered");
             return null;
         } finally {
             // close session and factory to prevent memory leak
@@ -53,57 +55,78 @@ public class StudentService implements StudentDAO {
     public boolean validateStudent(String sEmail, String sPass) {
         // open session
         ManageSession manager = new ManageSession();
-        manager.start();
 
-        // create list of student to populate given the named query that returns results if email and pass match the db
-        TypedQuery query = manager.session.getNamedQuery("validateStudent");
-        query.setParameter("sEmail", sEmail);
-        query.setParameter("sPass", sPass);
-        List<Student> student = query.getResultList();
-        // if statement to return false if no values are shown
-        if(student.isEmpty()) {
+        try {
+            // create list of student to populate given the named query that returns results if email and pass match the db
+            manager.start();
+            TypedQuery query = manager.session.getNamedQuery("validateStudent");
+            query.setParameter("sEmail", sEmail);
+            query.setParameter("sPass", sPass);
+            List<Student> student = query.getResultList();
+
+            // if statement to return false if no values are shown
+            if (student.isEmpty()) {
+                return false;
+            }
+            // Returns true if values are fetched
+            return true;
+        } catch(HibernateException e) {
+            System.out.println("Hibernate error encountered");
             return false;
+        } finally {
+            manager.stop();
         }
-        // Returns true if values are fetched
-        manager.stop();
-        return true;
-
     }
 
     @Override
     public void registerStudentToCourse(String sEmail, int cId) {
         ManageSession manager = new ManageSession();
         CourseService getCourses = new CourseService();
+        // Initialize objects for checking and List for placement
         Student student = getStudentByEmail(sEmail);
         Course course = getCourses.getCourseById(cId);
         List<Course> courseList = getStudentByEmail(sEmail).getsCourses();
 
-        manager.start();
-        if(!courseList.contains(course)) {
-            manager.session.getTransaction().begin();
-            student.getsCourses().add(course);
-            manager.session.update(student);
-
-            manager.session.getTransaction().commit();
-        } else {
-            System.out.println("student already attending course");
+        try {
+            manager.start();
+            // if the courseList is empty, add course
+            if (!courseList.contains(course)) {
+                manager.session.getTransaction().begin();
+                student.getsCourses().add(course);
+                manager.session.update(student);
+                manager.session.getTransaction().commit();
+            } else {
+                // if courseList already contains the same course, print output
+                System.out.println("student already attending course");
+            }
+        } catch(HibernateException e) {
+            System.out.println("Hibernate error encountered");
+        } finally {
+            manager.stop();
         }
-
-        manager.stop();
     }
 
     @Override
     public List<Course> getStudentCourses(String sEmail) {
+        // Instantiate helper class
         ManageSession manager = new ManageSession();
-        manager.start();
+        try {
+            // open session
+            manager.start();
+            Student student;
+            List<Course> courseList;
 
-        Student student = null;
-        List<Course> courseList = null;
+            student = manager.session.get(Student.class, sEmail);
+            courseList = student.getsCourses();
 
-        student = manager.session.get(Student.class, sEmail);
-        courseList = student.getsCourses();
+            return courseList;
 
-        return courseList;
-
+        } catch(HibernateException e) {
+            System.out.println("Hibernate error");
+            return null;
+        } finally {
+            // close session
+            manager.stop();
+        }
     }
 }
