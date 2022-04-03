@@ -1,0 +1,51 @@
+body {
+    background-color: rgb(199, 120, 199) !important;
+}
+
+#form {
+    width: 300px;
+    margin: 20vh auto 0 auto;
+    padding: 20px;
+    background-color: whitesmoke;
+    border-radius: 4px;
+}
+
+#form h1 {
+    color: black;
+    text-align: center;
+}
+
+#form button {
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
+    background-color: rgb(87, 87, 161);
+    border-radius: 4px;
+}
+
+.input-control input {
+    border: 2px solid rgb(167, 167, 167);
+    border-radius: 4px;
+    display: block;
+    padding:4px;
+    width: 100%;
+}
+
+.input-control input:focus {
+    outline: 0;
+}
+
+.input-control.success input {
+    border-color: rgb(85, 199, 93);
+}
+
+.input-control.error input {
+    border-color: rgb(202, 79, 79);
+}
+
+.input-control .error {
+    color: rgb(202, 79, 79);
+    font-size: 10px;
+    height: 8px;
+}

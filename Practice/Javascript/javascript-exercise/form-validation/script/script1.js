@@ -57,3 +57,5 @@ function validateEmail() {
     }
     return (true)
 }
+
+console.log(eval(2 + 4))
