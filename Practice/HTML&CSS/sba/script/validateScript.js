@@ -5,9 +5,15 @@ const password = document.getElementById('password');
 // const password2 = document.getElementById('password2');
 
 form.addEventListener('submit', e => {
-    e.preventDefault();
+    // check value of validateInputs in log
+    console.log(validateInputs())
+    // value of validate inputs will be 0-2
+    if(validateInputs() == 2) {
+        validateInputs();
+    } else {
+        e.preventDefault();
+    }
     
-    validateInputs();
 })
 
 const setError = (element, message) => {
@@ -35,24 +41,18 @@ const isValidEmail = email => {
 }
 
 const validateInputs = () => {
-    // const usernameValue = username.value.trim();
     const emailValue = email.value.trim();
     const passwordValue = password.value.trim();
-    // const password2Value = password2.value.trim();
+    let emailCheck = false;
+    let passCheck = false;
 
-    // for username
-    // if(usernameValue === '') {
-    //     setError(username, 'Username cannot be blank');
-    // } else {
-    //     setSuccess(username);
-    // }
-    // for email
     if(emailValue === '') {
         setError(email, 'Email cannot be blank');
     } else if(!isValidEmail(emailValue)) {
         setError(email, 'Email is not valid');
     } else {
         setSuccess(email);
+        emailCheck = true;
     }
     // for password 
     if(passwordValue === '') {
@@ -61,15 +61,8 @@ const validateInputs = () => {
         setError(password, 'Password must be at least 8 characters');
     } else {
         setSuccess(password);
+        passCheck = true
     }
-    // for password confirm
-    // if(password2Value === '') {
-    //     setError(password2, 'Please confirm password');
-    // } else if(password2Value !== passwordValue) {
-    //     setError(password2, 'Passwords does not match');
-    // } else {
-    //     setSuccess(password2);
-    // }
-
-
+    // return added value of the checks, converts boolean to number
+    return emailCheck + passCheck;
 }
