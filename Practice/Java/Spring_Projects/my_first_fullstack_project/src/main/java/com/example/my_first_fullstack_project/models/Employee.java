@@ -1,6 +1,9 @@
 package com.example.my_first_fullstack_project.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "employees")
@@ -10,6 +13,8 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @Size(min = 3, max = 30)
     @Column(name = "first_name")
     private String firstName;
 

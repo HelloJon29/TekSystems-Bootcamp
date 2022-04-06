@@ -1,15 +1,13 @@
 package com.jonathankim.monster_factory.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Monsters")
 public class Monster {
     @Id
     @Column(name = "monster_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long monsterId;
 
     @Column(name = "monster_name")
