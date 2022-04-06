@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller // used to tell Spring Data it is a controller
@@ -51,7 +53,6 @@ public class EmployeeController {
 
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
-
         // get employee from the service
         Employee employee = employeeService.getEmployeeById(id);
 
@@ -65,6 +66,18 @@ public class EmployeeController {
 
         // call delete employee method
         this.employeeService.deleteEmployeeById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
         return "redirect:/";
     }
 }
