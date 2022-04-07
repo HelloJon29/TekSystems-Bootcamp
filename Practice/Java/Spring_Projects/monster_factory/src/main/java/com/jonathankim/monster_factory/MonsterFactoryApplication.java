@@ -16,14 +16,6 @@ public class MonsterFactoryApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(MonsterFactoryApplication.class, args);
-		MonsterService monsterService = applicationContext.getBean(MonsterService.class);
-		if(monsterService != null) {
-			System.out.println("monsterService = " + monsterService);
-		}
-		MonsterController monsterController = applicationContext.getBean(MonsterController.class);
-		if(monsterController != null) {
-			System.out.println("monsterController = " + monsterController);
-		}
 	}
 
 }

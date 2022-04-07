@@ -19,10 +19,15 @@ public class MonsterController {
         this.monsterService = monsterService;
     }
 
+    @GetMapping("/index")
+    public String showIndex() {
+        return "/";
+    }
+
     @GetMapping("/vault")
     public String getAllMonsters(Model model) {
         model.addAttribute("listMonsters", monsterService.getAllMonsters());
-        return "/vault";
+        return "vault";
     }
 
     @GetMapping("/showNewMonsterForm")
@@ -45,7 +50,7 @@ public class MonsterController {
         return "update_monster";
     }
 
-    @GetMapping("deleteMonster/{id}")
+    @GetMapping("/deleteMonster/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") long id) {
         monsterService.deleteMonsterById(id);
         return "redirect:/vault";
