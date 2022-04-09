@@ -19,8 +19,8 @@ public class Monster {
     @Column(name = "monster_color")
     private String color;
 
-    @Column(name = "monster_loc")
-    private String location;
+//    @Column(name = "monster_loc")
+//    private String location;
 
     // Getters Setters
     public long getMonsterId() {
@@ -55,11 +55,11 @@ public class Monster {
         this.color = color;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
+//    public String getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(String location) {
+//        this.location = location;
+//    }
 }

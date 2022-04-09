@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         // the order of matchers is important, have the most generic at the top
         http.authorizeRequests()
-                .mvcMatchers("/login").permitAll()
+                .mvcMatchers("/**").permitAll()
                 .mvcMatchers("/deleteEmployee/**").hasAnyRole("SUPERADMIN")
                 .mvcMatchers("/showFormForUpdate/**").hasAnyRole("ADMIN", "SUPERADMIN")
                 .mvcMatchers("/showEmployeeForm/**").hasAnyRole("ADMIN", "SUPERADMIN")
@@ -45,4 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("superadmin").password(passwordEncoder.encode("superadmin")).roles("USER", "ADMIN", "SUPERADMIN");
 
     }
+
+
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository // this lets spring data know what this interface is
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    // spring data will simplify this method for implementation later, the method name is used for that purpose in relation to Object
+    // spring data will simplify this method for implementation later, the method name is used for that purpose in relation to Object, this is simplified sql, can also write native queries
     Optional<Employee> findById(Long Id);
 
     Employee findByEmail(String email);
