@@ -7,6 +7,6 @@ import java.util.List;
 public interface MonsterService {
     List<Monster> getAllMonsters();
     void saveMonster(Monster monster);
-    Monster getMonsterById(long monsterId);
-    void deleteMonsterById(long monsterId);
+    Monster getMonsterById(long id);
+    void deleteMonsterById(long id);
 }

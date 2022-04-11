@@ -1,16 +1,17 @@
 package com.jonathankim.monster_factory.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Monsters")
 public class Monster {
     @Id
-    @Column(name = "monster_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long monsterId;
+    private long id;
 
-    @Column(name = "monster_name")
+    @Size(max = 25, message = "Your Monster's name must be less than 25")
+    @Column(name = "monster_name", length = 25, nullable = false)
     private String name;
 
     @Column(name = "monster_size")
@@ -20,15 +21,15 @@ public class Monster {
     private String color;
 
 //    @Column(name = "monster_loc")
-//    private String location;
+//    private Location location;
 
     // Getters Setters
-    public long getMonsterId() {
-        return monsterId;
+    public long getId() {
+        return id;
     }
 
-    public void setMonsterId(long monsterId) {
-        this.monsterId = monsterId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -55,11 +56,11 @@ public class Monster {
         this.color = color;
     }
 
-//    public String getLocation() {
+//    public Location getLocation() {
 //        return location;
 //    }
 //
-//    public void setLocation(String location) {
+//    public void setLocation(Location location) {
 //        this.location = location;
 //    }
 }

@@ -43,7 +43,7 @@
 
         <div class="container">
             <!-- for table -->
-            <table border="1" class="table table-striped table-responsive-md">
+            <table border="1" class="table table-responsive-md text-light">
                 <thead>
                 <tr>
                     <th>Monster Name</th>
@@ -58,9 +58,9 @@
                     <td th:text="${monster.name}"></td>
                     <td th:text="${monster.size}"></td>
                     <td th:text="${monster.color}"></td>
-                    <td th:text="${monster.location}"></td>
-                    <td> <a th:href="@{/showFormForUpdate/{id}(id=${monster.monsterId})}" class="btn btn-second">Update</a>
-                        <a th:href="@{/deleteMonster/{id}(id=${monster.monsterId})}" class="btn btn-second">Delete</a>
+<!--                    <td th:text="${monster.location_id}"></td>-->
+                    <td> <a th:href="@{/showFormForUpdate/{id}(id=${monster.id})}" class="btn btn-second">Update</a>
+                        <a th:href="@{/deleteMonster/{id}(id=${monster.id})}" class="btn btn-second">Delete</a>
                     </td>
                 </tr>
                 </tbody>

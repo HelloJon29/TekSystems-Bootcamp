@@ -6,36 +6,25 @@ import java.util.List;
 public class Vault {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long vaultId;
-
-    @OneToOne
-    private User userId;
+    private long id;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private List<Monster> monVaultList;
+    private List<Monster> monsterList;
 
     //Getter and Setters
-    public long getVaultId() {
-        return vaultId;
+    public long getId() {
+        return id;
     }
 
-    public void setVaultId(long vaultId) {
-        this.vaultId = vaultId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public User getUserId() {
-        return userId;
+    public List<Monster> getMonsterList() {
+        return monsterList;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    public List<Monster> getMonVaultList() {
-        return monVaultList;
-    }
-
-    public void setMonVaultList(List<Monster> monVaultList) {
-        this.monVaultList = monVaultList;
+    public void setMonsterList(List<Monster> monsterList) {
+        this.monsterList = monsterList;
     }
 }

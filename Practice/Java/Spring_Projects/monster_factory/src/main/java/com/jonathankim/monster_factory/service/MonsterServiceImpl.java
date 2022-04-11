@@ -25,8 +25,8 @@ public class MonsterServiceImpl implements MonsterService {
     }
 
     @Override
-    public Monster getMonsterById(long monsterId) {
-        Monster monster = monsterRepository.getById(monsterId);
+    public Monster getMonsterById(long id) {
+        Monster monster = monsterRepository.getById(id);
         if(monster == null) {
             throw new MonsterNotFoundException();
         }
@@ -34,7 +34,7 @@ public class MonsterServiceImpl implements MonsterService {
     }
 
     @Override
-    public void deleteMonsterById(long monsterId) {
-        monsterRepository.deleteById(monsterId);
+    public void deleteMonsterById(long id) {
+        monsterRepository.deleteById(id);
     }
 }

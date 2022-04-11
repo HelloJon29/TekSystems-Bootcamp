@@ -7,7 +7,7 @@ import java.util.List;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long locationId;
+    private long id;
     private String country;
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
@@ -15,12 +15,12 @@ public class Location {
 
     //Getters and Setters
 
-    public long getLocationId() {
-        return locationId;
+    public long getId() {
+        return id;
     }
 
-    public void setLocationId(long locationId) {
-        this.locationId = locationId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCountry() {
