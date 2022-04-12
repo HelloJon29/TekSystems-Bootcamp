@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         // the order of matchers is important, have the most generic at the top
         http.authorizeRequests()
-                .mvcMatchers("/**").permitAll()
+                .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/deleteEmployee/**").hasAnyRole("SUPERADMIN")
                 .mvcMatchers("/showFormForUpdate/**").hasAnyRole("ADMIN", "SUPERADMIN")
                 .mvcMatchers("/showEmployeeForm/**").hasAnyRole("ADMIN", "SUPERADMIN")
@@ -24,12 +24,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/**").hasAnyRole("USER", "ADMIN", "SUPERADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                .httpBasic()
                 .and()
-                .logout()
-                .permitAll();
+                .csrf().disable();
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
         // @formatter:on
     }
 
