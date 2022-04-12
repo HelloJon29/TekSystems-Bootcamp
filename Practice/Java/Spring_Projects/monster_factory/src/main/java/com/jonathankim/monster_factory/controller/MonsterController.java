@@ -19,7 +19,7 @@ public class MonsterController {
         this.monsterService = monsterService;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/home")
     public String showIndex() {
         return "/";
     }
@@ -55,5 +55,13 @@ public class MonsterController {
         monsterService.deleteMonsterById(id);
         return "redirect:/vault";
     }
+
+//    @GetMapping("/wishlist/{id}")
+//    public String showWishlist(@PathVariable(value="id") long id, Model model) {
+//        Wishlist wishlist = wishlistService.getWishlistById(id);
+//        model.addAttribute("moviesList", wishlist.getMovies());
+//        return "wishlist";
+//    }
+
 
 }
