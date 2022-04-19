@@ -1,0 +1,7 @@
+com.example.my_first_fullstack_project
+com.example.my_first_fullstack_project.controller
+com.example.my_first_fullstack_project.models
+com.example.my_first_fullstack_project.repositories
+com.example.my_first_fullstack_project.security
+com.example.my_first_fullstack_project.services
+com.example.my_first_fullstack_project.shoppingcart
